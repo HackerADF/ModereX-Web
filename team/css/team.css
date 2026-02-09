@@ -206,31 +206,41 @@ body {
 }
 
 .hero-glow-1 {
-    width: 600px;
-    height: 600px;
-    background: var(--primary);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, hsla(215, 85%, 55%, 0.2) 0%, transparent 70%);
     top: -200px;
-    right: -100px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .hero-glow-2 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, hsla(260, 70%, 60%, 0.15) 0%, transparent 70%);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: 3s;
+}
+
+.hero-glow-3 {
     width: 500px;
     height: 500px;
-    background: var(--accent);
-    bottom: -150px;
+    background: radial-gradient(circle, hsla(142, 70%, 50%, 0.1) 0%, transparent 70%);
+    top: 50%;
     left: -100px;
-    animation-delay: 2s;
+    animation-delay: 6s;
 }
 
 .hero-grid {
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.1;
-    mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%);
+        linear-gradient(hsla(215, 20%, 20%, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, hsla(215, 20%, 20%, 0.2) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 0%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 0%, transparent 80%);
 }
 
 .page-header {
