@@ -552,6 +552,11 @@ body {
     color: var(--text-secondary);
 }
 
+.cta-section {
+    padding: 80px 0;
+    background: var(--bg);
+}
+
 .collaboration-cta {
     background: linear-gradient(135deg, var(--primary), var(--accent));
     border-radius: var(--radius-xl);
