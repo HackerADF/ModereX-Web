@@ -100,3 +100,74 @@ function createParticles() {
 }
 
 setTimeout(createParticles, 1000);
+
+function abbreviateNumber(num) {
+    if (num >= 1000000000) {
+        return (num / 1000000000).toFixed(1) + 'B';
+    }
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+    }
+    if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toString();
+}
+
+function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+}
+
+function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-target'));
+    const suffix = element.getAttribute('data-suffix') || '';
+    const shouldAbbreviate = element.getAttribute('data-abbreviate') === 'true';
+    const duration = 2500;
+    const startTime = performance.now();
+
+    const updateCounter = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutCubic(progress);
+        const current = Math.floor(easedProgress * target);
+
+        if (shouldAbbreviate) {
+            element.textContent = abbreviateNumber(current) + suffix;
+        } else {
+            element.textContent = current.toLocaleString() + suffix;
+        }
+
+        if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+        } else {
+            if (shouldAbbreviate) {
+                element.textContent = abbreviateNumber(target) + suffix;
+            } else {
+                element.textContent = target.toLocaleString() + suffix;
+            }
+        }
+    };
+
+    requestAnimationFrame(updateCounter);
+}
+
+const counters = document.querySelectorAll('.stat-counter');
+if (counters.length > 0) {
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                entry.target.classList.add('animated');
+                animateCounter(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+}
